@@ -1,98 +1,161 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Pilas_Dinamicas
 {
-    class program
+    class Program
     {
-        public static int num;
-        public static void Main(string[] args)
-        {
-            Stack Numeros = new Stack();
-            string op = "";
-            int va;
+        public static Stack<string> ciudad = new Stack<string>();
+        public static string c;
 
+        static void Main(string[] args)
+        {
+            string opcV = "";
             do
             {
-                Console.Clear();
+                int opc = 0;
 
-                Console.WriteLine("******************** MENÚ DE OPCIONES - PILAS ESTATICAS ********************");
-                Console.WriteLine("\n1. Insertar datos a la pila.");
-                Console.WriteLine("2. Eliminar datos de la pila.");
-                Console.WriteLine("3. Mostrar datos de las pilas.");
+                Console.WriteLine("Menú de opciones.");
+                Console.WriteLine("1. Insertar valores");
+                Console.WriteLine("2. Eliminación");
+                Console.WriteLine("3. Búsqueda");
+                Console.WriteLine("4. Imprimir los datos de la pila");
+                Console.WriteLine("5. Mostrar información");
+                Console.WriteLine("6. Salir");
 
-                Console.WriteLine("\nIngresa el valor a elegir:");
+                Console.Write("Ingrese una opción: ");
                 Console.Write("-> ");
-                va = Convert.ToInt32(Console.ReadLine());
+                opc = Convert.ToInt32(Console.ReadLine());
 
-                switch (va)
+                switch (opc)
                 {
                     case 1:
-                        insertar(ref numeros);
+                        insertarValor();
                         break;
                     case 2:
-                        eliminar();
+                        eliminarValor();
                         break;
                     case 3:
-                        mostrar();
+                        buscarValor();
                         break;
                     case 4:
-                        //busqueda();
+                        imprimirValor();
                         break;
                     case 5:
-                        //impresion();
+                        mostrarValores();
                         break;
                     case 6:
-                        //mostrar();
-                        break;
-                    case 7:
-                        //\\
+                        Console.WriteLine("Saliendo del programa.");
+                        Environment.Exit(1);
                         break;
                     default:
-                        Console.WriteLine("La opción a elegi no existe.");
+                        Console.WriteLine("La opción ingresada no existe, por favor inicie de nuevo");
+                        Environment.Exit(1);
                         break;
                 }
 
-                Console.WriteLine("¿Desea realizar alguna otra acción del menú? Si / No");
+                Console.WriteLine("¿Desea realizar otra acición en el menu?");
                 Console.Write("-> ");
-                op = Console.ReadLine();
-            } while (op != "no");
-
-            Console.WriteLine("Gracias por usar el programa, vuelva pronto.");
+                opcV = Console.ReadLine();
+            } while (opcV == "si");
         }
 
-        public static bool llena(ref Stack numeros)
+        static bool verificaLleno()
         {
-            if (numeros.Count < 10)
-            {
-                return true;
-            }
-            else
+            if (ciudad.Count < 7)
             {
                 return false;
             }
+            else
+            {
+                return true;
+            }
         }
-        public static void insertar()
+
+        static bool verificaVacia()
         {
-            int opc1 = 0;
+            if (ciudad.Count < 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        static void insertarValor()
+        {
+            Console.Clear();
             do
             {
-                if (llena(ref numeros) == true)
+                Console.Write("Ingrese una ciudad o país al que le gustaría viajar: ");
+                Console.Write("-> ");
+                string valor = Console.ReadLine();
+                if (ciudad.Count < 7)
                 {
-                    Console.WriteLine("Inserta un valor:");
-                    Console.Write("-> ");
-                    num = Convert.ToInt32(Console.ReadLine());
-                    numeros.Push(num);
-                    Console.WriteLine("Valor insertado con exito");
-
-                    Console.WriteLine("¿Desea ingresar otro valor? 1.Si / 2.No");
-                    Console.Write("-> ");
-                    opc1 = Convert.ToInt32(Console.ReadLine());
+                    ciudad.Push(valor);
                 }
                 else
                 {
-                    Console.WriteLine("Pila llena.");
+                    Console.WriteLine("No hay más espacio en la pila");
                 }
-            } while (opc1 == 1);
+                Console.Write("¿Desea ingresar otro valor? Si / No");
+                Console.Write("-> ");
+                c = Console.ReadLine();
+            } while (c != "no");
+            Console.Clear();
         }
+        static void eliminarValor()
+        {
+            Console.Clear();
+            do
+            {
+                if (verificaVacia() == false)
+                {
+                    Console.WriteLine("Ciudad eliminado " + ciudad.Pop());
+                }
+                else
+                {
+                    Console.WriteLine("La pila ya esta vacia.");
+                }
+                Console.Write("¿Desea eliminar otro dato? Si / No ");
+                Console.Write("-> ");
+                c = Console.ReadLine();
+            } while (c != "no" || verificaVacia() == false);
+            Console.Clear();
+        }
+        static void buscarValor()
+        {
+            Console.Clear();
+            string cV;
+            Console.Write("Ingrese el dato que desea buscar en la pila: ");
+            Console.Write("-> ");
+            cV = Console.ReadLine();
+            if (ciudad.Contains(cV) == true)
+            {
+                Console.WriteLine("La ciudad ingresada si existe, " + cV);
+            }
+            else Console.WriteLine("No existe la ciudad en la pila");
+            
+        }
+        static void imprimirValor()
+        {
+            Console.Clear();
+            foreach (string ciu in ciudad)
+            {
+                Console.WriteLine(ciu);
+            }
+            Console.WriteLine("Presione la tecla <Enter> para continuar");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        static void mostrarValores()
+        {
+            Console.Clear();
+            Console.WriteLine("Numero de datos actuales en la pila: " + ciudad.Count);
+            Console.WriteLine("Ultimo valor insertado: " + ciudad.Peek());
+            Console.WriteLine("Presione la tecla <Enter> para continuar");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
     }
 }
