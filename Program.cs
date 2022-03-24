@@ -48,7 +48,7 @@ namespace Pilas_Dinamicas
                         //\\
                         break;
                     default:
-                        Console.WriteLine("La opción a elegir no existe.");
+                        Console.WriteLine("La opción a elegi no existe.");
                         break;
                 }
 
