@@ -108,7 +108,7 @@ namespace Pilas_Dinamicas
             Console.Clear();
             do
             {
-                if (verificaVacia() == false)
+                if (ciudad.Count >= 0)
                 {
                     Console.WriteLine("Ciudad eliminado " + ciudad.Pop());
                 }
@@ -119,7 +119,7 @@ namespace Pilas_Dinamicas
                 Console.Write("¿Desea eliminar otro dato? Si / No ");
                 Console.Write("-> ");
                 c = Console.ReadLine();
-            } while (c != "no" || verificaVacia() == false);
+            } while (c != "no");
             Console.Clear();
         }
         static void buscarValor()
